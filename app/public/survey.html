@@ -156,50 +156,53 @@
 
 	</div>
 
+	<div class="modal fade" id="matchModal">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title">Your match!</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <h5><span id="modalName"></span></h5>
+	        <img id="modalImg" src="">
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
 </body>
 
 <script>
 
 	$("#submit").on("click", function() {
+		event.preventDefault();
 
 		var newFriend = {
 			name: $("#name").val().trim(),
 			photo: $("photo").val().trim(),
-			q1: $("q1").val().trim(),
-			q2: $("q2").val().trim(),
-			q3: $("q3").val().trim(),
-			q4: $("q4").val().trim(),
-			q5: $("q5").val().trim(),
-			q6: $("q6").val().trim(),
-			q7: $("q7").val().trim(),
-			q8: $("q8").val().trim(),
-			q9: $("q9").val().trim(),
-			q10: $("q10").val().trim()
+			scores: [$("#q1").val(), $("#q2").val(), $("#q3").val(), $("#q4").val(), $("#q5").val(), $("#q6").val(), $("#q7").val(), $("#q8").val(), $("#q9").val(), $("#q10").val()];
 		};
 
 		console.log(newFriend);
 		var currentURL = window.location.origin;
 
 		// This area may also run user info against potential friends
-		$.post(currentURL + "api/friends", newFriend, function(data) {
+		$.post(currentURL + "/api/friends", newFriend, function(data) {
 			
-			$("#name").val("");
-			$("photo").val("");
-			$("q1").val("");
-			$("q2").val("");
-			$("q3").val("");
-			$("q4").val("");
-			$("q5").val("");
-			$("q6").val("");
-			$("q7").val("");
-			$("q8").val("");
-			$("q9").val("");
-			$("q10").val("");
+			
 		});
 
-	})
+	});
 
 	function findFriends() {
+
+		//var difference = function (a, b) { return Math.abs(a - b); } 
 		var currentURL = window.location.origin;
 
 		$.ajax({url: currentURL + '/api/friends', method: "GET"})
