@@ -176,53 +176,45 @@
 	  </div>
 	</div>
 
-</body>
-
-<script>
+<script type=text/javascript>
 
 	$("#submit").on("click", function() {
 		event.preventDefault();
 
 		var newFriend = {
 			name: $("#name").val().trim(),
-			photo: $("photo").val().trim(),
-			scores: [$("#q1").val(), $("#q2").val(), $("#q3").val(), $("#q4").val(), $("#q5").val(), $("#q6").val(), $("#q7").val(), $("#q8").val(), $("#q9").val(), $("#q10").val()];
+			photo: $("#photo").val().trim(),
+			scores: [$("#q1").val(), $("#q2").val(), $("#q3").val(), $("#q4").val(), $("#q5").val(), $("#q6").val(), $("#q7").val(), $("#q8").val(), $("#q9").val(), $("#q10").val()]
 		};
 
 		console.log(newFriend);
-		var currentURL = window.location.origin;
+		var url = window.location.origin;
 
 		// This area may also run user info against potential friends
-		$.post(currentURL + "/api/friends", newFriend, function(data) {
-			
-			
+		$.post(url + "/api/friends", newFriend, function(data) {
+			$("#modalName").text(data.name);
+			$("#modalImg").attr("src", data.photo);
+			$("#matchModal").modal("show");
 		});
+
+		$('.modal').modal();
+
+		$('#name').val("");
+        $('#photo').val("");
+        $('#q1').val("");
+        $('#q2').val("");
+        $('#q3').val("");
+        $('#q4').val("");
+        $('#q5').val("");
+        $('#q6').val("");
+        $('#q7').val("");
+        $('#q8').val("");
+        $('#q9').val("");
+        $('#q10').val("");
 
 	});
 
-	function findFriends() {
-
-		//var difference = function (a, b) { return Math.abs(a - b); } 
-		var currentURL = window.location.origin;
-
-		$.ajax({url: currentURL + '/api/friends', method: "GET"})
-		.done(function(friendData) {
-			console.log("---------------------------");
-			console.log("URL: " + currentURL + "/api/friends");
-			console.log("---------------------------");
-			console.log(friendData);
-			console.log("---------------------------");
-
-			//Run comparison function here
-			for (var x=0; x < friendData; x++) {
-				console.log(friendData[x]);
-			}
-
-		})
-	}
-
-
 
 </script>
-
+</body>
 </html>
