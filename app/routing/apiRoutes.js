@@ -9,9 +9,8 @@ module.exports = function(app) {
 
 	app.post('/api/friends', function(req,res) {
 
-		var friendScores = req.body.fix;
-
-		console.log(friendScores);
+		var friendData = req.body;
+		var friendScores = friendData.scores;
 
 		var scores = [];
 		var friendChoices = 0;
